@@ -44,10 +44,11 @@ class MediaSender():
         self.file_extension_regex = re.compile("^.*\.([0-9a-z]+)(?:[\?\/][^\s]*)?$")
         self.MEDIA_TYPE = None
 
-    def send_by_url(self, jid, file_url, caption=None):
+    def send_by_url(self, jid, file_url, caption=None, ftype=None):
         """ Downloads and send a file_url """
         try:
             # self.interface_layer.toLower(TextMessageProtocolEntity("{...}", to=jid))
+            if ftype is not None: file_url = file_url + str(ftype)
             file_path = self._download_file(file_url)
             self.send_by_path(jid, file_path, caption)
         except Exception as e:
